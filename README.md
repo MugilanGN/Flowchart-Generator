@@ -1,6 +1,8 @@
 # Flowchart-Generator
 Automatically converts Pseudocode into IGCSE© certified Flowcharts!
 
+![Image description](Flowchart.png)
+
 ## Installation
 
 Run this to install the dependency Pillow:
