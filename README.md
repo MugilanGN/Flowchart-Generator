@@ -1,5 +1,5 @@
 # Flowchart-Generator
-Automatically creates IGCSE© certified Flowcharts from Pseudocode!
+Automatically creates Flowcharts from Pseudocode!
 <img src="flowchart.png" alt="alt text" width="629" height="500">
 ## Installation
 
