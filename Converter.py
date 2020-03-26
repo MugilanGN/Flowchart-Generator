@@ -427,10 +427,8 @@ def drawer(chart_code,max_branch,max_y,layer_height,branch_width,font_data):
         if key == 1:
             combined_heights[key] = height_offset
         else:
-            combined_heights[key] = layer_height[key-1] + combined_heights[key-1] + block_gap
-
-    #print(layer_height,combined_heights)
-
+            combined_heights[key] = layer_height[key-1] + combined_heights[key-1] + block_g
+            
     img_width = int(combined_widths[list(combined_widths.keys())[-1]] + branch_width[list(branch_width.keys())[-1]] + width_offset*2)
     img_height = int(combined_heights[max_y] + layer_height[max_y] + height_offset)
 
@@ -449,7 +447,6 @@ def drawer(chart_code,max_branch,max_y,layer_height,branch_width,font_data):
         elif block['type'] == 'Decision':
             height,width = Decision(block['content'],block['position'])
         elif block['type'] == 'Connector':
-            #height = Process(block['content'],block['position'])
             height = draw.textsize("c",font=font)[1] + font_size
             
         Flowline(block['role'],block['position'],height,chart_code[0:i],width)
