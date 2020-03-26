@@ -9,7 +9,7 @@ Run this to install the dependency Pillow:
 pip install Pillow
 ```
 
-Now download the files from Github and keep them in a folder.
+Next, clone this project.
 
 ## Usage
 
