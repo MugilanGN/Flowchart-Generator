@@ -1,13 +1,14 @@
 import re,os
+import click
 from PIL import Image, ImageDraw, ImageFont
 
-def read():
+def read(file_name):
 
     #get raw lines out of txt
     
     converter = os.path.realpath(__file__)
     self_path = re.compile(r'(.+)Converter.py')
-    text_path = re.search(self_path,converter).group(1) + "enter.txt"
+    text_path = re.search(self_path,converter).group(1) + file_name
     text_file = open(text_path,"r")
     lines = text_file.readlines()
     text_file.close()
@@ -455,16 +456,22 @@ def drawer(chart_code,max_branch,max_y,layer_height,branch_width,font_data):
     
     return img
 
-def main():
-    lines = read()
+@click.command()
+@click.option('--fontsize', default=20, help="The font size")
+@click.option('--font', default=r"C:/Windows/Fonts/Arial.ttf", help="The font's path")
+@click.option('--code', default="enter.txt", help="The file with pseudocode")
+@click.option('--output', default="flowchart.png", help="The output image")
 
-    font_data = {"path":r"C:/Windows/Fonts/Arial.ttf","size":20}
+def main(fontsize,code,output,font):
+    lines = read(code)
+
+    font_data = {"path":font,"size":fontsize}
     
     chart_code,max_branch,max_y,layer_height,branch_width = translation(lines,font_data)
 
     flowchart = drawer(chart_code,max_branch,max_y,layer_height,branch_width,font_data)
 
-    flowchart.save('flowchart.png')
+    flowchart.save(output)
 
 if __name__ == '__main__':
     main()
