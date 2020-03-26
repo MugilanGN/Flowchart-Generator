@@ -428,7 +428,7 @@ def drawer(chart_code,max_branch,max_y,layer_height,branch_width,font_data):
         if key == 1:
             combined_heights[key] = height_offset
         else:
-            combined_heights[key] = layer_height[key-1] + combined_heights[key-1] + block_g
+            combined_heights[key] = layer_height[key-1] + combined_heights[key-1] + block_gap
             
     img_width = int(combined_widths[list(combined_widths.keys())[-1]] + branch_width[list(branch_width.keys())[-1]] + width_offset*2)
     img_height = int(combined_heights[max_y] + layer_height[max_y] + height_offset)
