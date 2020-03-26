@@ -49,10 +49,7 @@ def translation(lines,font_data):
 
     branch_width = {}
     layer_height = {}
-
-    #font_path = r"C:/Windows/Fonts/Arial.ttf"
-    #font_size = 20
-
+    
     font_path = font_data['path']
     font_size = font_data['size']
     font = ImageFont.truetype(font_path, font_size)
@@ -467,9 +464,6 @@ def main():
     font_data = {"path":r"C:/Windows/Fonts/Arial.ttf","size":20}
     
     chart_code,max_branch,max_y,layer_height,branch_width = translation(lines,font_data)
-    
-    #for line in chart_code:
-        #print(str(line["position"])+ "  :  " + str(line["role"])+ "  :  " + line['content'])
 
     flowchart = drawer(chart_code,max_branch,max_y,layer_height,branch_width,font_data)
 
