@@ -1,4 +1,4 @@
-import re,os,math
+import re,os
 from PIL import Image, ImageDraw, ImageFont
 
 def read():
