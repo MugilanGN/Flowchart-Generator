@@ -405,8 +405,8 @@ def drawer(chart_code,max_branch,max_y,layer_height,branch_width,font_data):
     scale_constant = int(font_size/2)
     block_gap = font_size * 3/2
      
-    height_offset = 100
-    width_offset = 100
+    height_offset = 2 * font_size
+    width_offset = 2 * font_size
 
     tree_struct = Restructure([i for i in range(1,max_branch+1)])
 
