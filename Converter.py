@@ -24,6 +24,10 @@ def read():
     indent_filter = re.compile(r'^\s*(.*)$')
     for i in range(0,len(lines)):
         lines[i] = re.search(indent_filter,lines[i]).group(1)
+        
+    #removes blank lines
+    
+    lines = list(filter(lambda a: a != '', lines))
 
     lines.append("STOP")
     
