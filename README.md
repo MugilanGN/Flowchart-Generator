@@ -17,6 +17,8 @@ Now download the files from Github and keep them in a folder.
 
 The Pseudocode is entered into the enter.txt file. It follows strict rules which must be obeyed
 
+<img src="enter.png" alt="alt text">
+
 The following statements are the only ones allowed (yet). First the syntax is given, and then examples are given after the colon.
 
   1. INPUT: INPUT X
