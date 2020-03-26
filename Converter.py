@@ -470,7 +470,7 @@ def main():
 
     flowchart = drawer(chart_code,max_branch,max_y,layer_height,branch_width,font_data)
 
-    flowchart.save('testing3.png')
+    flowchart.save('flowchart.png')
 
 if __name__ == '__main__':
     main()
