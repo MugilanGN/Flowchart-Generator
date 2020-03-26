@@ -42,7 +42,7 @@ To run the code, simply execute the following command:
 python Converter.py
 ```
 
-### Arguments
+#### Arguments
   
   Arguments in the CLI are typed like so: ```--fontsize=20``` or ```--code="enter.txt"```
  
@@ -51,7 +51,7 @@ python Converter.py
   - ```--output``` is the flowchart's image file. Default is "flowchart.png"
   - ```--code``` is the file with the pseudocode. Defaults to "enter.txt"
   - ```--help``` provides CLI help
-
+  
 ### Flowchart Image
 
 This image contains the created flowchart which can be shared, printed, etc. Its size varies exactly on the size of the flowchart created, so it may even hit a resolution of 10k pixels! However if the generated flowchart is too big, then the image will be unopenable due to being too large. The user should be careful with flowchart sizes.
