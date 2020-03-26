@@ -35,14 +35,14 @@ ELSE IF is not available, but nested IFs are possible
 
 Loops support is WIP, so is not available
 
-### CLI usage
+## CLI usage
 
 To run the code, simply execute the following command:
 ```sh
 python Converter.py
 ```
 
-#### Arguments
+### Arguments
   
   Arguments in the CLI are typed like so: ```--fontsize=20``` or ```--code="enter.txt"```
  
