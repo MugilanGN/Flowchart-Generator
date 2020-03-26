@@ -39,7 +39,7 @@ Loops support is WIP, so is not available
 Simply run the Converter.py file. There will be no printed output, but a file called flowchart.png will be generated in its directory.
 **Warning: This will overwrite previous flowchart.png files.**
 
-If the size of the font, and therefore the size of the flowchart itself, the user can edit the font_data variable in the main() function within Converter. By default the font is Arial at a size of 20. This can be altered to give different sized flowcharts.
+The size of the font, and therefore the size of the flowchart itself, can be changed. The user can edit the font_data variable in the main() function within Converter. By default the font is Arial at a size of 20. This can be altered to give different sized flowcharts.
 
 ### Flowchart Image
 
