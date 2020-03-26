@@ -1,7 +1,7 @@
 # Flowchart-Generator
 Automatically converts Pseudocode into IGCSE© certified Flowcharts!
 
-![Image description](flowchart.png)
+<img src="flowchart.png" alt="alt text" width="629" height="500">
 
 ## Installation
 
