@@ -3,10 +3,11 @@ Automatically creates Flowcharts from Pseudocode!
 <img src="flowchart.png" alt="alt text" width="629" height="500">
 ## Installation
 
-Run this to install the dependency Pillow:
+Run these to install the necessary dependencies:
 
 ```sh 
 pip install Pillow
+pip install click
 ```
 
 Next, clone this project.
@@ -15,7 +16,7 @@ Next, clone this project.
 
 ### Writing the Pseudocode
 
-The Pseudocode is entered into the enter.txt file. It follows strict rules which must be obeyed
+The Pseudocode is entered into a .txt file. It follows strict rules which must be obeyed
 
 <img src="enter.png" alt="alt text">
 
@@ -34,12 +35,22 @@ ELSE IF is not available, but nested IFs are possible
 
 Loops support is WIP, so is not available
 
-### Running the Converter
+### CLI usage
 
-Simply run the Converter.py file. There will be no printed output, but a file called flowchart.png will be generated in its directory.
-**Warning: This will overwrite previous flowchart.png files.**
+To run the code, simply execute the following command:
+```sh
+python Converter.py
+```
 
-The size of the font, and therefore the size of the flowchart itself, can be changed. The user can edit the font_data variable in the main() function within Converter. By default the font is Arial at a size of 20. This can be altered to give different sized flowcharts.
+### Arguments
+  
+  Arguments in the CLI are typed like so: ```--fontsize=20``` or ```--code="enter.txt"```
+ 
+  - ```--fontsize``` is the font size used. This controls the size of the entire flowchart as well. By default it is 20px
+  - ```--font``` is the font path. Default is "C:/Windows/Fonts/Arial.ttf", but can be changed for different OS' or fonts
+  - ```--output``` is the flowchart's image file. Default is "flowchart.png"
+  - ```--code``` is the file with the pseudocode. Defaults to "enter.txt"
+  - ```--help``` provides CLI help
 
 ### Flowchart Image
 
