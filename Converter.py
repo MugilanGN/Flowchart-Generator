@@ -31,7 +31,6 @@ def read():
 
     lines.append("STOP")
     
-
     return lines
 
 def translation(lines,font_data):
