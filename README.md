@@ -3,6 +3,8 @@ Automatically creates Flowcharts from Pseudocode!
 <img src="flowchart.png" alt="alt text" width="629" height="500">
 ## Installation
 
+This project was built on Python 3.7.4
+
 Run these to install the necessary dependencies:
 
 ```sh 
