@@ -11,7 +11,7 @@ Run this to install the dependency Pillow:
 pip install Pillow
 ```
 
-Now download the two files from Github and keep them in a folder.
+Now download the files from Github and keep them in a folder.
 
 ## Usage
 
