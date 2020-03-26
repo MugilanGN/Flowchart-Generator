@@ -6,7 +6,7 @@ def read():
     #get raw lines out of txt
     
     converter = os.path.realpath(__file__)
-    self_path = re.compile(r'(.+)testing5.py')
+    self_path = re.compile(r'(.+)Converter.py')
     text_path = re.search(self_path,converter).group(1) + "enter.txt"
     text_file = open(text_path,"r")
     lines = text_file.readlines()
