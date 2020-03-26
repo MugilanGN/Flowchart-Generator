@@ -12,9 +12,7 @@ pip install click
 
 Next, clone this project.
 
-## Usage
-
-### Writing the Pseudocode
+## Writing the Pseudocode
 
 The Pseudocode is entered into a .txt file. It follows strict rules which must be obeyed
 
