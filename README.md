@@ -43,7 +43,7 @@ The size of the font, and therefore the size of the flowchart itself, can be cha
 
 ### Flowchart Image
 
-This image contains the created flowchart which can be shared, printed, etc. Its size varies exactly on the size of the flowchart created, so it may even hit a resolution of 10k pixels!
+This image contains the created flowchart which can be shared, printed, etc. Its size varies exactly on the size of the flowchart created, so it may even hit a resolution of 10k pixels! However if the generated flowchart is too big, then the image will be unopenable due to being too large. The user should be careful with flowchart sizes.
 
 ## Support
 
