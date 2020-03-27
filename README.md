@@ -21,12 +21,12 @@ The Pseudocode is entered into a .txt file. It follows strict rules which must b
 
 The following statements are the only ones allowed (yet). First the syntax is given, and then examples are given after the colon.
 
-  1. INPUT: INPUT X
-  2. OUTPUT: OUTPUT X ; OUTPUT "hello"
-  3. IF: IF condition THEN
-  4. ELSE
-  5. ENDIF
-  6. Process type blocks: x = x + 1
+  - INPUT: INPUT X
+  - OUTPUT: OUTPUT X ; OUTPUT "hello"
+  - IF: IF condition THEN
+  - ELSE
+  - ENDIF
+  - Process type blocks: x = x + 1
   
 STOP and START are automatically input by the program, so do not need to be added
 
