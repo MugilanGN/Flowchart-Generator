@@ -32,6 +32,8 @@ STOP and START are automatically input by the program, so do not need to be adde
 
 ELSE IF is not available, but nested IFs are possible
 
+The ENDIF and ELSE blocks are mandatory, and ELSE must have something inside (anything)
+
 Loops support is WIP, so is not available
 
 ## CLI usage
