@@ -5,11 +5,10 @@ Automatically creates Flowcharts from Pseudocode!
 
 This project was built on Python 3.7.4
 
-Run these to install the necessary dependencies:
+Run this to install the necessary dependencies:
 
 ```sh 
-pip install Pillow
-pip install click
+pip install Pillow click
 ```
 
 Next, clone this project.
