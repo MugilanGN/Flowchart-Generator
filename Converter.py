@@ -439,6 +439,9 @@ def drawer(chart_code,max_branch,max_y,layer_height,branch_width,font_data):
             odd_branch = [position[0]*2+1,0]
             associated_while = [position[0],0]
             
+            # This searches for the ENDWHILE's corresponding while loop
+            # It also looks for the branches created by that while
+            
             for obj in reversed(chart_code):
                 if obj['position'][0] == even_branch[0] and even_branch[1] == 0:
                     even_branch[1] = obj['position'][1]
@@ -489,6 +492,9 @@ def drawer(chart_code,max_branch,max_y,layer_height,branch_width,font_data):
             
             even_branch = [position[0]*2,0]
             odd_branch = [position[0]*2+1,0]
+            
+            # This searches for the last objects in the two branches created by an IF statement
+            # This IF statement is the one that is closed by the ENDIF
             
             for obj in reversed(chart_code):
                 if obj['position'][0] == odd_branch[0] and odd_branch[1] == 0:
