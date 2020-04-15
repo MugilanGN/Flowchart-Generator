@@ -7,8 +7,8 @@ A program that converts pseudocode to .png flowcharts
 import re
 import os
 from math import log, floor
-import click
 
+import click
 from PIL import Image, ImageDraw, ImageFont
 
 from tree import newTree,newNode
