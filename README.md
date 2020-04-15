@@ -33,17 +33,17 @@ The ENDIF and ELSE blocks are mandatory, and ELSE must have something inside (an
 
 ### Syntax Guide
 
-  - INPUT: INPUT X
-  - OUTPUT: OUTPUT X ; OUTPUT "hello"
+  - INPUT x 
+  - OUTPUT x
   
   Example:
   ```sh
   INPUT X
-  OUTPUT X
+  OUTPUT var
   OUTPUT "hello"
   ```
   
-  - IF: IF condition THEN
+  - IF condition THEN
   - ELSE
   - ENDIF
   
@@ -55,7 +55,7 @@ The ENDIF and ELSE blocks are mandatory, and ELSE must have something inside (an
     OUTPUT x*2
   ENDIF
   ```
-  - Process type blocks: x = x + 1
+  - Process type blocks
   Example:
   ```sh
   x = x + 1
