@@ -1,6 +1,22 @@
-import re,os
+#!/usr/bin/env python
+
+'''
+A program that converts pseudocode to .png flowcharts
+'''
+
+import re
+import os
+from math import log, floor
 import click
+
 from PIL import Image, ImageDraw, ImageFont
+
+from tree import newTree,newNode
+
+__author__ = "Mugilan Ganesan"
+__email__ = "mugi.ganesan@gmail.com"
+__status__ = "Developer"
+__version__ = "1.1.0"
 
 def read(file_name):
 
@@ -12,29 +28,47 @@ def read(file_name):
     text_file = open(text_path,"r")
     lines = text_file.readlines()
     text_file.close()
-
-    #remove the \n's from the lines individually
-    lines.insert(0, "START")
     
-    for i in range(0,len(lines)):
-        if lines[i][-1] == '\n':
-            lines[i] = lines[i][:-1]
-
-    #removes indents
+    # Basic Preprocessor
     
-    indent_filter = re.compile(r'^\s*(.*)$')
-    for i in range(0,len(lines)):
-        lines[i] = re.search(indent_filter,lines[i]).group(1)
+    processed_lines = []
+    
+    for_re = re.compile(r'^FOR\s(.+)\s<-\s(.+)\sTO\s(.+)')
+    next_re = re.compile(r'^NEXT\s(.+)')
+    
+    processed_lines.append("START")
+    
+    for line in lines:
         
-    #removes blank lines
-    
-    lines = list(filter(lambda a: a != '', lines))
+        line = line.rstrip().lstrip()
 
-    lines.append("STOP")
+        if re.search(for_re,line):
+            var = re.search(for_re,line).group(1)
+            low = re.search(for_re,line).group(2)
+            high = re.search(for_re,line).group(3)
+
+            processed_lines.append(var + " = " + low)
+            processed_lines.append("WHILE " + var + " < " + high + " DO")
+
+        elif re.search(next_re,line):
+            var = re.search(next_re,line).group(1)
+
+            processed_lines.append(var + " = " + var + " + 1")
+            processed_lines.append("ENDWHILE")
+        
+        elif line == '':
+            pass
+
+        else:
+            processed_lines.append(line)
+
+    processed_lines.append("STOP")
     
-    return lines
+    return processed_lines
 
 def translation(lines,font_data):
+    
+    # All the different fundamental types of statements
     
     input_re = re.compile(r'^INPUT\s(.+)')
     output_re = re.compile(r'^OUTPUT\s(.+)')
@@ -42,14 +76,17 @@ def translation(lines,font_data):
     if_re = re.compile(r'^IF\s(.+)\sTHEN$')
     else_re = re.compile(r'^ELSE$')
     endif_re = re.compile(r'^ENDIF$')
+    
+    while_re = re.compile(r'^WHILE\s(.+)\sDO$')
+    endwhile_re = re.compile(r'^ENDWHILE$')
 
     chart_code = []
 
     amount_per_branch = {}
     beginning_of_split = {}
 
-    branch_width = {}
-    layer_height = {}
+    branch_width = {} #keeps track of the maximum width of each branch
+    layer_height = {} #keeps track of the maximum height of each layer
     
     font_path = font_data['path']
     font_size = font_data['size']
@@ -58,8 +95,26 @@ def translation(lines,font_data):
     img = Image.new('RGB', (10, 10), color = 'white')
     draw = ImageDraw.Draw(img)
     
-    x = [1]
-    y = [1]
+    x = [1] # stack used to navigate the pseudocode as a binary tree
+    y = [1] # stack used to navigate the layers
+    
+    # This for loop converts each line into a block
+    # A block will have content,role,position,type keys
+    
+        # The role is what type of flow line connection it makes
+        # Content is its data / the line itself
+        # Position is a set of X and Y coords on a "grid"
+        # Type can be the block type like Decision or Terminator
+        
+    # The fundamental operation is first to identify what type of block it is,
+    # with regex. Then it is drawn out on a dummy image to see what its width and height is.
+    
+    # These widths are used to figure out what the maximum width of each branch is.
+    
+    # Likewise the heights are used to figure out the maximum height of the layer the block is on,
+    # compared to the other blocks on its same layer / y-coordinate
+    
+    # Then the block is added to the chart code with its relevant attributes
     
     for i in range(0,len(lines)):
         line = lines[i]
@@ -88,23 +143,11 @@ def translation(lines,font_data):
             amount_per_branch[x[-1]] += 1
             y[-1] +=1
         
-        elif re.search(input_re,line):
+        elif re.search(input_re,line) or re.search(output_re,line):
             chart_code.append({"type":"IO","content":line,"position":[x[-1],y[-1]],"role":'n'})
 
-            if draw.textsize(line,font=font)[0] + font_size * 4 > branch_width[x[-1]]:
-                branch_width[x[-1]] = draw.textsize(line,font=font)[0] + font_size * 4
-
-            if draw.textsize(line,font=font)[1] + font_size > layer_height[y[-1]]:
-                layer_height[y[-1]] = draw.textsize(line,font=font)[1] + font_size
-                
-            amount_per_branch[x[-1]] += 1
-            y[-1] +=1
-            
-        elif re.search(output_re,line):             
-            chart_code.append({"type":"IO","content":line,"position":[x[-1],y[-1]],"role":'n'})
-
-            if draw.textsize(line,font=font)[0] + font_size * 4> branch_width[x[-1]]:
-                branch_width[x[-1]] = draw.textsize(line,font=font)[0] + font_size * 4
+            if draw.textsize(line,font=font)[0] + font_size * 3 > branch_width[x[-1]]:
+                branch_width[x[-1]] = draw.textsize(line,font=font)[0] + font_size * 3
 
             if draw.textsize(line,font=font)[1] + font_size > layer_height[y[-1]]:
                 layer_height[y[-1]] = draw.textsize(line,font=font)[1] + font_size
@@ -123,7 +166,7 @@ def translation(lines,font_data):
                 height = 5*font_size
 
             if width > branch_width[x[-1]]:
-               branch_width[x[-1]] = width
+                branch_width[x[-1]] = width
 
             if height > layer_height[y[-1]]:
                 layer_height[y[-1]] = height
@@ -144,7 +187,6 @@ def translation(lines,font_data):
                 y = y[:-1]
 
         elif re.search(endif_re,line):
-            next_line = lines[i+1]
             
             if amount_per_branch[x[-1]-1] > amount_per_branch[x[-1]]:
                 amount_per_branch[x[-2]] += amount_per_branch[x[-1]-1]
@@ -159,11 +201,68 @@ def translation(lines,font_data):
             y = y[:-1]
             x = x[:-1]
 
-            chart_code.append({"type":"Connector","content":"c","position":[x[-1],y[-1]],"role":'c'})
+            chart_code.append({"type":"Connector","content":"cB","position":[x[-1],y[-1]],"role":'cB'})
             
             amount_per_branch[x[-1]] += 1
             y[-1] += 1
+            
+        elif re.search(while_re,line):
+            chart_code.append({"type":"Decision","content":re.search(while_re,line).group(1),"position":[x[-1],y[-1]],"role":'o'})
+            
+            if len(line) > len("IF")+1:    
+                width = 3/2*draw.textsize(line,font=font)[0]
+                height = 5*draw.textsize(line,font=font)[1] 
+            else:
+                width = 5*font_size
+                height = 5*font_size
 
+            if width > branch_width[x[-1]]:
+                branch_width[x[-1]] = width
+
+            if height > layer_height[y[-1]]:
+                layer_height[y[-1]] = height
+            
+            amount_per_branch[x[-1]] += 1
+
+            beginning_of_split[x[-1]] = y[-1]
+            
+            x.append(2*x[-1])
+            y.append(y[-1]+1)
+        
+        elif re.search(endwhile_re,line):
+            
+            x[-1] += 1
+            y[-1] = y[-2] + 1
+            
+            if x[-1] not in amount_per_branch:
+                amount_per_branch[x[-1]] = 0
+                beginning_of_split[x[-1]] = 0
+                branch_width[x[-1]] = 0
+
+            if y[-1] not in layer_height:
+                layer_height[y[-1]] = draw.textsize("a",font=font)[1] + font_size
+            
+            chart_code.append({"type":"Connector","content":"c","position":[x[-1],y[-1]],"role":'n'})
+                
+            amount_per_branch[x[-1]] += 1
+            y[-1] +=1
+            
+            if amount_per_branch[x[-1]-1] > amount_per_branch[x[-1]]:
+                amount_per_branch[x[-2]] += amount_per_branch[x[-1]-1]
+                y[-2] = amount_per_branch[x[-1]-1] + beginning_of_split[x[-2]] + 1
+            else:
+                amount_per_branch[x[-2]] += amount_per_branch[x[-1]]
+                y[-2] = amount_per_branch[x[-1]] + beginning_of_split[x[-2]] + 1
+                
+            amount_per_branch[x[-1]] = 0
+            amount_per_branch[x[-1]-1] = 0
+                
+            y = y[:-1]
+            x = x[:-1]
+            chart_code.append({"type":"Connector","content":"c","position":[x[-1],y[-1]],"role":'cW'})
+            
+            amount_per_branch[x[-1]] += 1
+            y[-1] += 1
             
         else:   
             chart_code.append({"type":"Process","content":line,"position":[x[-1],y[-1]],"role":'n'})
@@ -178,51 +277,14 @@ def translation(lines,font_data):
             y[-1] +=1
 
     del draw,img
-
-    max_branches = max(amount_per_branch)
-            
-    count = 0
     
-    while max_branches != 1:
-        if max_branches % 2 == 0:
-            max_branches /= 2
-        else:
-            max_branches = (max_branches - 1) / 2
-        count += 1
+    max_branch = 2 ** (floor(log(max(amount_per_branch),2))+1) - 1 #biggest branch
     
-    max_branch = 2 ** (count+1) - 1
-    
-    max_y = amount_per_branch[1]
+    max_y = amount_per_branch[1] #the last layer in the flowchart
     
     return chart_code,max_branch,max_y,layer_height,branch_width
 
 def drawer(chart_code,max_branch,max_y,layer_height,branch_width,font_data):
-
-    class newNode: 
-        def __init__(self, data): 
-            self.data = data  
-            self.left = self.right = None
-
-    def insertLevelOrder(arr, root, i, n): 
-        if i < n: 
-            temp = newNode(arr[i])  
-            root = temp  
-            root.left = insertLevelOrder(arr, root.left, 2 * i + 1, n)  
-            root.right = insertLevelOrder(arr, root.right, 2 * i + 2, n) 
-        return root 
-
-    def inOrder(root,result): 
-        if root != None: 
-            inOrder(root.left,result)
-            result.append(root.data)
-            inOrder(root.right,result) 
-  
-    def Restructure(arr):
-        root = None
-        root = insertLevelOrder(arr, root, 0, len(arr))
-        result = []
-        inOrder(root,result)
-        return result
     
     def Terminator(text,position):
         
@@ -322,9 +384,17 @@ def drawer(chart_code,max_branch,max_y,layer_height,branch_width,font_data):
                 draw.line([(coords[0],coords[1]),(coords[0]+L,coords[1]-h)], fill='black', width=1)
                 draw.line([(coords[0],coords[1]),(coords[0]-L,coords[1]-h)], fill='black', width=1)
 
-            elif direction == "top":
+            elif direction == "up":
                 draw.line([(coords[0],coords[1]),(coords[0]+L,coords[1]+h)], fill='black', width=1)
                 draw.line([(coords[0],coords[1]),(coords[0]-L,coords[1]+h)], fill='black', width=1)
+                
+        # The various roles are [n,o,cW,cB,t]
+        
+            # n means that flowlines will be drawn directly after the block to the next layer
+            # o means that an If statement has opened two branches
+            # cW means that a connector object will close a while loop
+            # cB means that a connector will close an if statement's two branches by merging them
+            # t means that no flowlines will be drawn (they are terminated)
                 
         if role == 'n':
             axis = width_offset + combined_widths[position[0]] + branch_width[position[0]]/2
@@ -334,7 +404,7 @@ def drawer(chart_code,max_branch,max_y,layer_height,branch_width,font_data):
             
             draw.line([(axis,start),(axis,start+distance)], fill='black', width=1)
             arrow([axis,start+2*distance/3],block_gap/3,"down")
-
+            
         elif role == 'o':
             if_axis = width_offset + combined_widths[position[0]] + branch_width[position[0]]/2
 
@@ -358,8 +428,57 @@ def drawer(chart_code,max_branch,max_y,layer_height,branch_width,font_data):
 
             draw.text(( (if_axis-width/2 +even_axis)/2 - 2*font_size,start-2*font_size), "yes", fill='black',font=font)
             draw.text(( (if_axis+width/2 +odd_axis)/2 - 2*font_size,start-2*font_size), "no", fill='black',font=font)
+        
+        elif role == 'cW':
+            axis = width_offset + combined_widths[position[0]] + branch_width[position[0]]/2
+            
+            start = combined_heights[position[1]]+height/2
+            distance = combined_heights[position[1]+1] - start
+            
+            even_branch = [position[0]*2,0]
+            odd_branch = [position[0]*2+1,0]
+            associated_while = [position[0],0]
+            
+            for obj in reversed(chart_code):
+                if obj['position'][0] == even_branch[0] and even_branch[1] == 0:
+                    even_branch[1] = obj['position'][1]
+                if obj['position'][0] == odd_branch[0] and odd_branch[1] == 0:
+                    odd_branch[1] = obj['position'][1]
+                if obj['position'][0] == associated_while[0] and associated_while[1] == 0:
+                    associated_while[1] = obj['position'][1]
+                if even_branch[1] != 0 and associated_while[1] !=0 and odd_branch[1] !=0:
+                    break
+                    
+            even_axis = width_offset + combined_widths[2*position[0]] + branch_width[2*position[0]]/2
+            
+            draw.line([(axis,start),(even_axis,start)], fill='black', width=1)
+            arrow([(axis+even_axis)/2 - block_gap/3,start],block_gap/3,"right")
+            
+            start = combined_heights[even_branch[1]+1]
+            distance = combined_heights[position[1]]+height/2 - start
 
-        elif role == 'c':
+            draw.line([(even_axis,start),(even_axis,start+distance)], fill='black', width=1)
+            
+            while_height = combined_heights[associated_while[1]+1] - block_gap
+            
+            draw.line([(axis,while_height),(axis,start+distance)], fill='black', width=1)
+            
+            arrow([axis,(while_height+start+distance)/2 - block_gap/3],block_gap/3,"up")
+            
+            odd_axis = width_offset + combined_widths[2*position[0]+1] + branch_width[2*position[0]+1]/2
+            
+            start = combined_heights[odd_branch[1]]
+            distance = combined_heights[position[1]]+height - start
+            
+            draw.line([(odd_axis,start),(odd_axis,start+distance)], fill='black', width=1)
+            
+            draw.line([(odd_axis,start+distance),(axis,start+distance)], fill='black', width=1)
+            arrow([(axis+odd_axis)/2 - block_gap/3,start+distance],block_gap/3,"left")
+            
+            draw.line([(axis,start+distance),(axis,start+distance+block_gap)], fill='black', width=1)
+            arrow([axis,start+distance+block_gap*2/3],block_gap/3,"down")
+
+        elif role == 'cB':
             axis = width_offset + combined_widths[position[0]] + branch_width[position[0]]/2
 
             start = combined_heights[position[1]]+height/2
@@ -408,34 +527,44 @@ def drawer(chart_code,max_branch,max_y,layer_height,branch_width,font_data):
     height_offset = 2 * font_size
     width_offset = 2 * font_size
 
-    tree_struct = Restructure([i for i in range(1,max_branch+1)])
+    tree = newTree([i for i in range(1,max_branch+1)], "levelorder") # creates a binary tree
+    
+    #tree_struct is an array version of a tree which looks like this [2,1,3]
+    tree_struct = tree.serializeInOrder(tree.root)
 
-    combined_widths = {}
-
+    combined_widths = {} # The pixel at which each branch starts at on x-axis
+    
     for i in range(0,len(tree_struct)):
         branch = tree_struct[i]
         if i == 0:
             combined_widths[branch] = 0
         else:
-            try:
+            if tree_struct[i-1] in branch_width.keys(): 
                 combined_widths[branch] = combined_widths[tree_struct[i-1]] + branch_width[tree_struct[i-1]]
-            except:
-                combined_widths[branch] = combined_widths[tree_struct[i-1]]
+            else:
+                branch_width[tree_struct[i-1]] = 0
+                combined_widths[branch] = combined_widths[tree_struct[i-1]] + 0
+                
+    if tree_struct[-1] not in branch_width.keys(): 
+        branch_width[tree_struct[-1]] = 0
 
-    combined_heights = {}
+    combined_heights = {} # The pixel at which each layer starts at on y-axis
 
     for key in layer_height.keys():
         if key == 1:
             combined_heights[key] = height_offset
         else:
             combined_heights[key] = layer_height[key-1] + combined_heights[key-1] + block_gap
-            
-    img_width = int(combined_widths[list(combined_widths.keys())[-1]] + branch_width[list(branch_width.keys())[-1]] + width_offset*2)
+    
+    img_width = int(combined_widths[list(combined_widths.keys())[-1]] + branch_width[list(combined_widths.keys())[-1]] + width_offset*2)
     img_height = int(combined_heights[max_y] + layer_height[max_y] + height_offset)
 
     img = Image.new('RGB', (img_width, img_height), color = 'white')
     draw = ImageDraw.Draw(img)
-
+    
+    # Goes throught each line of chart code and draws it. Then it handles
+    # that line's flowlines depending on its role
+    
     width = 0
     for i in range(0,len(chart_code)):
         block = chart_code[i]
