@@ -32,6 +32,8 @@ STOP and START are automatically input by the program, so do not need to be adde
 
 Indents don't affect the program, so nothing has to be indented, and incorrect indentation is allowed
 
+The capitalization of the keywords is extremely important. If an error occurs, double check if you have capitalized the keywords like "TO" and "FOR" properly
+
 ELSE IF is not available, but nested IFs are possible
 
 The ENDIF and ELSE blocks are mandatory, and ELSE must have something inside (anything)
