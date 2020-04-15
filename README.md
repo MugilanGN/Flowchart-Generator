@@ -19,15 +19,6 @@ The Pseudocode is entered into a .txt file. It follows strict rules which must b
 
 <img src="enter.png" alt="alt text">
 
-The following statements are the only ones allowed (yet). First the syntax is given, and then examples are given after the colon.
-
-  - INPUT: INPUT X
-  - OUTPUT: OUTPUT X ; OUTPUT "hello"
-  - IF: IF condition THEN
-  - ELSE
-  - ENDIF
-  - Process type blocks: x = x + 1
-  
 STOP and START are automatically input by the program, so do not need to be added
 
 Indents don't affect the program, so nothing has to be indented, and incorrect indentation is allowed
@@ -38,17 +29,48 @@ ELSE IF is not available, but nested IFs are possible
 
 The ENDIF and ELSE blocks are mandatory, and ELSE must have something inside (anything)
 
+
+  - INPUT: INPUT X
+  - OUTPUT: OUTPUT X ; OUTPUT "hello"
+  
+  Example:
+  ```sh
+  INPUT X
+  OUTPUT X
+  OUTPUT "hello"
+  ```
+  
+  - IF: IF condition THEN
+  - ELSE
+  - ENDIF
+  
+  Example:
+  ```sh
+  IF x < 3 THEN
+    OUTPUT X
+  ELSE
+    OUTPUT x*2
+  ENDIF
+  ```
+  - Process type blocks: x = x + 1
+  Example:
+  ```sh
+  x = x + 1
+  y = x / 2
+  ```
+
+
 Loops are now working correctly with v1.1. Their syntax is like so:
 
   - WHILE condition DO
   - ENDWHILE
   
-Example:
-```sh
-WHILE x < 5 DO
-  OUTPUT x
-ENDWHILE
-```
+  Example:
+  ```sh
+  WHILE x < 5 DO
+    OUTPUT x
+  ENDWHILE
+  ```
  
   - FOR var <- start TO end
   - NEXT var
