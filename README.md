@@ -34,7 +34,27 @@ ELSE IF is not available, but nested IFs are possible
 
 The ENDIF and ELSE blocks are mandatory, and ELSE must have something inside (anything)
 
-Loops support is WIP, so is not available
+Loops are now working correctly with v1.1. Their syntax is like so:
+
+  - WHILE condition DO
+  - ENDWHILE
+  
+Example:
+```sh
+WHILE x < 5 DO
+  OUTPUT x
+ENDWHILE
+```
+ 
+  - FOR var <- start TO end
+  - NEXT var
+  
+  Example:
+```sh
+FOR i <- 1 TO 5
+  OUTPUT i
+NEXT i
+```
 
 ## CLI usage
 
