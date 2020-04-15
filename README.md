@@ -19,6 +19,8 @@ The Pseudocode is entered into a .txt file. It follows strict rules which must b
 
 <img src="enter.png" alt="alt text">
 
+### Rules
+
 STOP and START are automatically input by the program, so do not need to be added
 
 Indents don't affect the program, so nothing has to be indented, and incorrect indentation is allowed
@@ -29,6 +31,7 @@ ELSE IF is not available, but nested IFs are possible
 
 The ENDIF and ELSE blocks are mandatory, and ELSE must have something inside (anything)
 
+### Syntax Guide
 
   - INPUT: INPUT X
   - OUTPUT: OUTPUT X ; OUTPUT "hello"
