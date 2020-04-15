@@ -188,6 +188,23 @@ def translation(lines,font_data):
 
         elif re.search(endif_re,line):
             
+            if x[-1] % 2 == 0:
+                x[-1] += 1
+                y[-1] = y[-2] + 1
+
+                if x[-1] not in amount_per_branch:
+                    amount_per_branch[x[-1]] = 0
+                    beginning_of_split[x[-1]] = 0
+                    branch_width[x[-1]] = 0
+
+                if y[-1] not in layer_height:
+                    layer_height[y[-1]] = draw.textsize("a",font=font)[1] + font_size
+
+                chart_code.append({"type":"Connector","content":"c","position":[x[-1],y[-1]],"role":'e'})
+
+                amount_per_branch[x[-1]] += 1
+                y[-1] +=1
+            
             if amount_per_branch[x[-1]-1] > amount_per_branch[x[-1]]:
                 amount_per_branch[x[-2]] += amount_per_branch[x[-1]-1]
                 y[-2] = amount_per_branch[x[-1]-1] + beginning_of_split[x[-2]] + 1
@@ -242,7 +259,7 @@ def translation(lines,font_data):
             if y[-1] not in layer_height:
                 layer_height[y[-1]] = draw.textsize("a",font=font)[1] + font_size
             
-            chart_code.append({"type":"Connector","content":"c","position":[x[-1],y[-1]],"role":'n'})
+            chart_code.append({"type":"Connector","content":"c","position":[x[-1],y[-1]],"role":'e'})
                 
             amount_per_branch[x[-1]] += 1
             y[-1] +=1
@@ -388,13 +405,14 @@ def drawer(chart_code,max_branch,max_y,layer_height,branch_width,font_data):
                 draw.line([(coords[0],coords[1]),(coords[0]+L,coords[1]+h)], fill='black', width=1)
                 draw.line([(coords[0],coords[1]),(coords[0]-L,coords[1]+h)], fill='black', width=1)
                 
-        # The various roles are [n,o,cW,cB,t]
+        # These are the various roles:
         
             # n means that flowlines will be drawn directly after the block to the next layer
             # o means that an If statement has opened two branches
             # cW means that a connector object will close a while loop
             # cB means that a connector will close an if statement's two branches by merging them
-            # t means that no flowlines will be drawn (they are terminated)
+            # t means that no flowlines will be drawn (they are terminated) after the block
+            # e means that it is an empty block so the lines can pass right through it
                 
         if role == 'n':
             axis = width_offset + combined_widths[position[0]] + branch_width[position[0]]/2
@@ -405,6 +423,14 @@ def drawer(chart_code,max_branch,max_y,layer_height,branch_width,font_data):
             draw.line([(axis,start),(axis,start+distance)], fill='black', width=1)
             arrow([axis,start+2*distance/3],block_gap/3,"down")
             
+        elif role == 'e':
+            axis = width_offset + combined_widths[position[0]] + branch_width[position[0]]/2
+            
+            start = combined_heights[position[1]]
+            distance = combined_heights[position[1]+1] - start
+            
+            draw.line([(axis,start),(axis,start+distance)], fill='black', width=1)
+        
         elif role == 'o':
             if_axis = width_offset + combined_widths[position[0]] + branch_width[position[0]]/2
 
