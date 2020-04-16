@@ -102,7 +102,7 @@ python Converter.py
   
   Arguments in the CLI are typed like so: ```--fontsize=20``` or ```--code="enter.txt"```
  
-  - ```--fontsize``` is the font size used. This controls the size of the entire flowchart as well. By default it is 20px
+  - ```--size``` is the font size used. This controls the size of the entire flowchart as well. By default it is 20px
   - ```--font``` is the font path. Default is "C:/Windows/Fonts/Arial.ttf", but can be changed for different OSs or fonts
   - ```--output``` is the flowchart's image file. Default is "flowchart.png"
   - ```--code``` is the file with the pseudocode. Defaults to "enter.txt"
