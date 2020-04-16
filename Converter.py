@@ -146,8 +146,8 @@ def translation(lines,font_data):
         elif re.search(input_re,line) or re.search(output_re,line):
             chart_code.append({"type":"IO","content":line,"position":[x[-1],y[-1]],"role":'n'})
 
-            if draw.textsize(line,font=font)[0] + font_size * 3 > branch_width[x[-1]]:
-                branch_width[x[-1]] = draw.textsize(line,font=font)[0] + font_size * 3
+            if draw.textsize(line,font=font)[0] + font_size * 2 > branch_width[x[-1]]:
+                branch_width[x[-1]] = draw.textsize(line,font=font)[0] + font_size * 2
 
             if draw.textsize(line,font=font)[1] + font_size > layer_height[y[-1]]:
                 layer_height[y[-1]] = draw.textsize(line,font=font)[1] + font_size
