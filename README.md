@@ -33,16 +33,16 @@ The ENDIF, NEXT var, and ENDWHILE blocks are mandatory
 
 ### Syntax Guide
 
-#### Input and Output:
+ #### Input and Output:
 
-   - INPUT x 
-   - OUTPUT x
+  - INPUT x 
+  - OUTPUT x
 
-    ```sh
-    INPUT X
-    OUTPUT var
-    OUTPUT "hello"
-    ```
+   ```sh
+   INPUT X
+   OUTPUT var
+   OUTPUT "hello"
+   ```
 #### IF statements:
   - IF condition THEN
   - ELSE
