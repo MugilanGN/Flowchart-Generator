@@ -29,25 +29,24 @@ The capitalization of the keywords is extremely important. If an error occurs, d
 
 ELSE IF is not available, but nested IFs are possible
 
-The ENDIF and ELSE blocks are mandatory, and ELSE must have something inside (anything)
+The ENDIF, NEXT var, and ENDWHILE blocks are mandatory
 
 ### Syntax Guide
 
-  - INPUT x 
-  - OUTPUT x
-  
-  Example:
-  ```sh
-  INPUT X
-  OUTPUT var
-  OUTPUT "hello"
-  ```
-  
+#### Input and Output
+    - INPUT x 
+    - OUTPUT x
+
+    ```sh
+    INPUT X
+    OUTPUT var
+    OUTPUT "hello"
+    ```
+#### IF statements
   - IF condition THEN
   - ELSE
   - ENDIF
   
-  Example:
   ```sh
   IF x < 3 THEN
     OUTPUT X
@@ -55,35 +54,41 @@ The ENDIF and ELSE blocks are mandatory, and ELSE must have something inside (an
     OUTPUT x*2
   ENDIF
   ```
-  - Process type blocks
-  Example:
+  The else statement is optional (ENDIF is still necessary)
+  
+   ```sh
+  IF x < 3 THEN
+    OUTPUT X
+  ENDIF
+  ```
+  
+  #### Process-type blocks
+
   ```sh
   x = x + 1
   y = x / 2
   ```
-
-
-Loops are now working correctly with v1.1. Their syntax is like so:
+  
+  #### While loops
 
   - WHILE condition DO
   - ENDWHILE
   
-  Example:
   ```sh
   WHILE x < 5 DO
     OUTPUT x
   ENDWHILE
   ```
- 
+  #### For loops
+   
   - FOR var <- start TO end
   - NEXT var
   
-  Example:
-```sh
-FOR i <- 1 TO 5
-  OUTPUT i
-NEXT i
-```
+  ```sh
+  FOR i <- 1 TO 5
+    OUTPUT i
+  NEXT i
+  ```
 
 ## CLI usage
 
