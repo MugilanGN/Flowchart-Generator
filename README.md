@@ -33,7 +33,7 @@ The ENDIF, NEXT var, and ENDWHILE blocks are mandatory
 
 ### Syntax Guide
 
-#### Input and Output
+#### Input and Output:
     - INPUT x 
     - OUTPUT x
 
@@ -42,7 +42,7 @@ The ENDIF, NEXT var, and ENDWHILE blocks are mandatory
     OUTPUT var
     OUTPUT "hello"
     ```
-#### IF statements
+#### IF statements:
   - IF condition THEN
   - ELSE
   - ENDIF
@@ -62,14 +62,14 @@ The ENDIF, NEXT var, and ENDWHILE blocks are mandatory
   ENDIF
   ```
   
-  #### Process-type blocks
+  #### Process-type blocks:
 
   ```sh
   x = x + 1
   y = x / 2
   ```
   
-  #### While loops
+  #### While loops:
 
   - WHILE condition DO
   - ENDWHILE
@@ -79,7 +79,7 @@ The ENDIF, NEXT var, and ENDWHILE blocks are mandatory
     OUTPUT x
   ENDWHILE
   ```
-  #### For loops
+  #### For loops:
    
   - FOR var <- start TO end
   - NEXT var
