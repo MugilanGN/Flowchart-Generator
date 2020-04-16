@@ -100,7 +100,7 @@ python Converter.py
 
 ### Arguments
   
-  Arguments in the CLI are typed like so: ```--fontsize=20``` or ```--code="enter.txt"```
+  Arguments in the CLI are typed like so: ```--size=20``` or ```--code="enter.txt"```
  
   - ```--size``` is the font size used. This controls the size of the entire flowchart as well. By default it is 20px
   - ```--font``` is the font path. Default is "C:/Windows/Fonts/Arial.ttf", but can be changed for different OSs or fonts
@@ -111,7 +111,7 @@ python Converter.py
   For example:
   
   ```sh
-  python Converter.py --code="code.txt" --fontsize=30 --output="result.png"
+  python Converter.py --code="code.txt" --size=30 --output="result.png"
   ```
 
 ### Flowchart Image
