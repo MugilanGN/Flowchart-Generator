@@ -37,4 +37,4 @@ class newTree:
             self.printInOrder(root.right)
 
 if __name__ == '__main__':
-    pass
+    tree = newTree([0,1,2,3],"levelorder")
