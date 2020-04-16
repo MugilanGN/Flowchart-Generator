@@ -441,10 +441,10 @@ def drawer(chart_code,max_branch,max_y,layer_height,branch_width,font_data):
             odd_axis = width_offset + combined_widths[2*position[0]+1] + branch_width[2*position[0]+1]/2
             
             draw.line([(if_axis-width/2,start),(even_axis,start)], fill='black', width=1)
-            arrow([(if_axis+even_axis)/2 - block_gap/3,start],block_gap/3,"left")
+            arrow([(even_axis+if_axis - width/2)/2 - block_gap/3,start],block_gap/3,"left")
             
             draw.line([(if_axis+width/2,start),(odd_axis,start)], fill='black', width=1)
-            arrow([(if_axis+odd_axis)/2 + block_gap/3,start],block_gap/3,"right")
+            arrow([(odd_axis+if_axis + width/2)/2 + block_gap/3,start],block_gap/3,"right")
 
             draw.line([(even_axis,start),(even_axis,end)], fill='black', width=1)
             arrow([even_axis,(start+end)/2 + block_gap/3],block_gap/3,"down")
@@ -452,8 +452,8 @@ def drawer(chart_code,max_branch,max_y,layer_height,branch_width,font_data):
             draw.line([(odd_axis,start),(odd_axis,end)], fill='black', width=1)
             arrow([odd_axis,(start+end)/2 + block_gap/3],block_gap/3,"down")
 
-            draw.text(( (if_axis-width/2 +even_axis)/2 - 2*font_size,start-2*font_size), "yes", fill='black',font=font)
-            draw.text(( (if_axis+width/2 +odd_axis)/2 - 2*font_size,start-2*font_size), "no", fill='black',font=font)
+            draw.text(( (if_axis - width/2 + even_axis)/2 - block_gap/2,start-2*font_size), "yes", fill='black',font=font)
+            draw.text(( (if_axis + width/2 + odd_axis)/2 - block_gap/3,start-2*font_size), "no", fill='black',font=font)
         
         elif role == 'cW':
             axis = width_offset + combined_widths[position[0]] + branch_width[position[0]]/2
@@ -618,15 +618,15 @@ def drawer(chart_code,max_branch,max_y,layer_height,branch_width,font_data):
     return img
 
 @click.command()
-@click.option('--fontsize', default=20, help="The font size")
+@click.option('--size', default=20, help="The size of the flowchart")
 @click.option('--font', default=r"C:/Windows/Fonts/Arial.ttf", help="The font's path")
 @click.option('--code', default="enter.txt", help="The file with pseudocode")
 @click.option('--output', default="flowchart.png", help="The output image")
 
-def main(fontsize,code,output,font):
+def main(size,code,output,font):
     lines = read(code)
 
-    font_data = {"path":font,"size":fontsize}
+    font_data = {"path":font,"size":size}
     
     chart_code,max_branch,max_y,layer_height,branch_width = translation(lines,font_data)
 
