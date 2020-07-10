@@ -9,8 +9,6 @@ class newTree:
         self.serialBuffer = []
         if insertType == "levelorder":
             self.insertLevelOrder(arr, 0, len(arr))
-        else:
-            pass
         
     def insertLevelOrder(self, arr, start, end): 
         if start < end:
