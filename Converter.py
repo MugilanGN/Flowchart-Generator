@@ -635,4 +635,4 @@ def main(size,code,output,font):
     flowchart.save(output)
 
 if __name__ == '__main__':
-    main()
+    main() 
