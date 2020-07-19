@@ -1,7 +1,7 @@
 class newNode: 
     def __init__(self, data): 
         self.data = data  
-        self.left = self.right = None 
+        self.left = self.right = None  
 
 class newTree:
     def __init__(self, arr, insertType):
