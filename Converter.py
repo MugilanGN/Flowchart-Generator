@@ -125,7 +125,7 @@ def translation(lines,font_data):
             branch_width[x[-1]] = 0
 
         if y[-1] not in layer_height:
-            layer_height[y[-1]] = draw.textsize("a",font=font)[1] + font_size
+            layer_height[y[-1]] = draw.textsize("a",font=font)[1] + font_size 
 
         if line == "START" or line == "STOP":
             
