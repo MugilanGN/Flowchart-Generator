@@ -163,7 +163,7 @@ def translation(lines,font_data):
                 height = 5*draw.textsize(line,font=font)[1] 
             else:
                 width = 5*font_size
-                height = 5*font_size
+                height = 5*font_size 
 
             if width > branch_width[x[-1]]:
                 branch_width[x[-1]] = width
