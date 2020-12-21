@@ -619,7 +619,7 @@ def drawer(chart_code,max_branch,max_y,layer_height,branch_width,font_data):
 
 @click.command()
 @click.option('--size', default=20, help="The size of the flowchart")
-@click.option('--font', default=r"C:/Windows/Fonts/Arial.ttf", help="The font's path")
+@click.option('--font', default=r"./fonts/arial.ttf", help="The font's path")
 @click.option('--code', default="enter.txt", help="The file with pseudocode")
 @click.option('--output', default="flowchart.png", help="The output image")
 
