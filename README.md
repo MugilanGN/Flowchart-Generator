@@ -1,6 +1,6 @@
 # Flowchart-Generator
 Automatically creates Flowcharts from Pseudocode!
-<img src="flowchart.png" alt="alt text" width="629" height="500">
+<img src="flowchart.png" width="629" height="500">
 
 ## Video Demo
 
