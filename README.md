@@ -13,7 +13,9 @@ If you don't want to download this or setup python, you can run this project dir
 
 This link will automatically clone the project and set it up for you. If you want to do it manually, you can import **github.com/MugilanGN/Flowchart-Generator** into repl.it yourself.
 
-From here onwards, you can edit the text file in the repl project and then run the commands from the [CLI Usage](#cli-usage) section of the README. 
+From here onwards, you can edit the enter.txt file in the repl project and replace it with your own custom pseudocode.
+
+Once you are done, you can run the commands from the [CLI Usage](#cli-usage) section of the README in the repl.it terminal.
 
 ## Local Installation
 
