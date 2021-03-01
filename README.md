@@ -8,6 +8,16 @@ https://www.youtube.com/watch?v=1gCqPBzU8Z0
 
 ## Installation
 
+### Repl.it
+
+If you don't want to download this or setup python, you can run this project directly from [repl.it](https://repl.it/github/MugilanGN/Flowchart-Generator)
+
+This link will automatically clone the project and set it up for you. If you want to do it manually, you can import github.com/MugilanGN/Flowchart-Generator into repl yourself.
+
+From here onwards, you can edit the text file in the repl project and then run the commands in [here](#cli-usage) 
+
+### Manual Installation
+
 This project was built on Python 3.7.4
 
 Run this to install the necessary dependencies:
@@ -16,7 +26,7 @@ Run this to install the necessary dependencies:
 pip install Pillow click
 ```
 
-Next, clone this project.
+Next, clone this project onto your local system.
 
 ## Writing the Pseudocode
 
