@@ -1,0 +1,34 @@
+#Soal No 1 (Program Tangen)
+
+import math
+
+
+def tan_ekspansi(n,x):
+    x = int(input("nilai x :"))
+    n = int(input("banyaknya suku :"))
+    c=0
+
+    for i in range(1, n+1):
+        B = 0;
+        Bn = 2 * i;
+        for k in range(Bn + 1):
+            temp = 0;
+            for r in range(0, k + 1):
+                temp = temp + ((-1)**r) * math.factorial(k)  * (r**Bn) / (math.factorial(r) * math.factorial(k - r));
+            B = B + temp / ((k + 1));
+        a = B * ((-4) ** i) * (1 - 4 ** i) * sudut_asli ** (2 * i - 1);
+        b = math.factorial(2 * i)
+        c = c + (a / b)
+    return(c)
+
+
+sudut_asli = float(x*22/7*1/180)
+c=float(tan_ekspansi(n,x))
+nilai_asli = math.tan(sudut_asli)
+error_absolute = abs(c - nilai_asli)
+error_relatif = abs((nilai_asli-c)/nilai_asli)
+
+print("tan x = {}".format(c))
+print("nilai_asli = {}".format(nilai_asli))
+print("error_absolute = {}".format(error_absolute))
+print("error_relatif = {}".format(error_relatif))
