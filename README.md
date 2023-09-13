@@ -24,7 +24,7 @@ This project was built on Python 3.7.4
 Run this to install the necessary dependencies:
 
 ```sh 
-pip install Pillow click
+pip install Pillow==9.0.0 click
 ```
 
 Next, clone this project onto your system.
