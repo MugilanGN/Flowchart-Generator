@@ -42,25 +42,26 @@ def read(file_name):
         
         line = line.rstrip().lstrip()
 
-        if re.search(for_re,line):
-            var = re.search(for_re,line).group(1)
-            low = re.search(for_re,line).group(2)
-            high = re.search(for_re,line).group(3)
+        if not line.startswith("#"): # ignore comment lines
+            if re.search(for_re,line):
+                var = re.search(for_re,line).group(1)
+                low = re.search(for_re,line).group(2)
+                high = re.search(for_re,line).group(3)
 
-            processed_lines.append(var + " = " + low)
-            processed_lines.append("WHILE " + var + " < " + high + " DO")
+                processed_lines.append(var + " = " + low)
+                processed_lines.append("WHILE " + var + " < " + high + " DO")
 
-        elif re.search(next_re,line):
-            var = re.search(next_re,line).group(1)
+            elif re.search(next_re,line):
+                var = re.search(next_re,line).group(1)
 
-            processed_lines.append(var + " = " + var + " + 1")
-            processed_lines.append("ENDWHILE")
-        
-        elif line == '':
-            pass
+                processed_lines.append(var + " = " + var + " + 1")
+                processed_lines.append("ENDWHILE")
 
-        else:
-            processed_lines.append(line)
+            elif line == '':
+                pass
+
+            else:
+                processed_lines.append(line)
 
     processed_lines.append("STOP")
     
